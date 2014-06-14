@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.chiefsglass.activites;
+package com.chefsglass.activites;
 
 import com.google.android.glass.touchpad.GestureDetector;
 import com.google.android.glass.widget.CardScrollAdapter;
