@@ -35,13 +35,13 @@ import com.google.android.glass.widget.CardScrollAdapter;
 /**
  * Adapter for the {@link CardSrollView} inside {@link SelectValueActivity}.
  */
-public class StepScrollAdapter extends CardScrollAdapter {
+public class IngredientScrollAdapter extends CardScrollAdapter {
 
 	private final Context mContext;
 	private final Recipe mRecipe;
 	private final List<Step> mSteps;
 
-	public StepScrollAdapter(Context context, Recipe recipe) {
+	public IngredientScrollAdapter(Context context, Recipe recipe) {
 		mContext = context;
 		mRecipe = recipe;
 		mSteps = recipe.steps;	
