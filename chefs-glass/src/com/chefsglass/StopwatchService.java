@@ -22,6 +22,7 @@ import com.chefsglass.http.AsyncHttpTask;
 import com.chefsglass.http.HttpService;
 import com.chefsglass.http.requests.GetRecipeRequest;
 import com.chefsglass.resources.Recipe;
+import com.chefsglass.views.RecipeDrawer;
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
 
@@ -36,9 +37,9 @@ import android.util.Log;
  */
 public class StopwatchService extends Service {
 
-	private static final String LIVE_CARD_TAG = "stopwatch";
+	private static final String LIVE_CARD_TAG = "recipe";
 
-	private ChronometerDrawer mCallback;
+	private RecipeDrawer mCallback;
 
 	private LiveCard mLiveCard;
 
@@ -54,7 +55,7 @@ public class StopwatchService extends Service {
 			new GetRecipeTask(new GetRecipeRequest(1l)).execute();
 
 			// Keep track of the callback to remove it before unpublishing.
-			mCallback = new ChronometerDrawer(this);
+			mCallback = new RecipeDrawer(this);
 			mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mCallback);
 
 			Intent menuIntent = new Intent(this, MenuActivity.class);
