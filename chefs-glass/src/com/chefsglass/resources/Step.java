@@ -5,5 +5,5 @@ public class Step {
 	public Recipe recipe;
 	public Integer stepNo;
 	public String description;
-	public Integer duration;
+	public Integer durationMinutes;
 }

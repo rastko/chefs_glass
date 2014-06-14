@@ -8,7 +8,7 @@ public class Recipe {
 	public String description;
 	public String photoURL;
 	public Integer servingsNo;
-	public Integer duration; //minutes
+	public Integer durationMinutes;
 	public Integer calories;
 	public Integer stepsNo;
 	

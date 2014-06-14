@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import java.util.concurrent.TimeUnit;
 
-import com.google.android.glass.sample.stopwatch.R;
+import com.chefsglass.R;
 
 /**
  * Animated countdown going from {@code mTimeSeconds} to 0.

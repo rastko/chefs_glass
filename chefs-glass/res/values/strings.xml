@@ -17,4 +17,6 @@
 <resources>
     <string name="app_name">Chef\'s Glass</string>
     <string name="stop">Stop</string>
+    <string name="step_number" formatted="false">Step %s/%s</string>
+    <string name="duration" formatted="false">%s minutes</string>
 </resources>
