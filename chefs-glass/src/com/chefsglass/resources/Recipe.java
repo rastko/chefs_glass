@@ -18,7 +18,6 @@ public class Recipe implements Parcelable {
 	public Integer servingsNo;
 	public Integer durationMinutes;
 	public Integer calories;
-	public Integer stepsNo;
 
 	public List<Step> steps;
 	public List<Ingredient> ingredients;
@@ -42,7 +41,6 @@ public class Recipe implements Parcelable {
 		out.writeInt(servingsNo);
 		out.writeInt(durationMinutes);
 		out.writeInt(calories);
-		out.writeInt(stepsNo);
 		out.writeList(steps);
 		out.writeList(ingredients);
 	}
@@ -55,7 +53,6 @@ public class Recipe implements Parcelable {
 		servingsNo = in.readInt();
 		durationMinutes = in.readInt();
 		calories = in.readInt();
-		stepsNo = in.readInt();
 
 		steps = new ArrayList<Step>();
 		in.readList(steps, Step.class.getClassLoader());

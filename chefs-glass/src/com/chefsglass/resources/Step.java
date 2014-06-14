@@ -6,7 +6,6 @@ import android.os.Parcelable;
 public class Step implements Parcelable {
 
 	public String id;
-	public Integer stepNo;
 	public String description;
 	public Integer durationMinutes;
 
@@ -23,14 +22,12 @@ public class Step implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeString(id);	
-		out.writeInt(stepNo);
 		out.writeString(description);
 		out.writeInt(durationMinutes);
 	}
 
 	private void readFromParcel(Parcel in) { 
 		id = in.readString();
-		stepNo = in.readInt();
 		description = in.readString();
 		durationMinutes = in.readInt();
 	}
