@@ -18,10 +18,6 @@ package com.chefsglass.adapters;
 
 import java.util.List;
 
-import com.chefsglass.R;
-import com.chefsglass.resources.Step;
-import com.google.android.glass.widget.CardScrollAdapter;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,63 +26,73 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.chefsglass.R;
+import com.chefsglass.resources.Recipe;
+import com.chefsglass.resources.Step;
+import com.google.android.glass.widget.CardScrollAdapter;
+
 /**
  * Adapter for the {@link CardSrollView} inside {@link SelectValueActivity}.
  */
 public class StepScrollAdapter extends CardScrollAdapter {
 
-    private final Context mContext;
-    private final List<Step> mSteps;
+	private final Context mContext;
+	private final Recipe mRecipe;
+	private final List<Step> mSteps;
 
-    public StepScrollAdapter(Context context, List<Step> steps) {
-        mContext = context;
-        mSteps = steps;
-    }
+	public StepScrollAdapter(Context context, Recipe recipe) {
+		mContext = context;
+		mRecipe = recipe;
+		mSteps = recipe.steps;	
+	}
 
-    @Override
-    public int getCount() {
-        return mSteps.size();
-    }
+	@Override
+	public int getCount() {
+		return mSteps.size();
+	}
 
-    @Override
-    public Object getItem(int position) {
-        return mSteps.get(position);
-    }
+	@Override
+	public Object getItem(int position) {
+		return mSteps.get(position);
+	}
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {    	
-    	
-        if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.card_step, parent);
-        }
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
 
-        Step step = (Step) getItem(position); 
-        
-        final FrameLayout layout = (FrameLayout) convertView.findViewById(R.id.layout);
-        //layout.setBackground(background); postavi sliku
-        
-        final TextView description = (TextView) convertView.findViewById(R.id.description);
-        description.setText(step.description);
-        
-        final TextView footer = (TextView) convertView.findViewById(R.id.footer);
-        String stepText = mContext.getResources().getString(R.string.step_number);
-        footer.setText(String.format(stepText, position,getCount()));
-        
-        
-        if(step.durationMinutes != null){
-        	final TextView duration = (TextView) convertView.findViewById(R.id.duration);
-        String durationText = mContext.getResources().getString(R.string.duration);
-        duration.setText(String.format(durationText, step.durationMinutes));
-        }
+		if (convertView == null) {
+			convertView = LayoutInflater.from(mContext).inflate(R.layout.card_step, parent);
+		}
 
-        return convertView;
-    }
+		setStepView(position, convertView);
 
-    @Override
-    public int getPosition(Object item) {
-        if (item instanceof Step) {
-        	return mSteps.indexOf(item);
-        }
-        return AdapterView.INVALID_POSITION;
-    }
+		return convertView;
+	}
+
+	@Override
+	public int getPosition(Object item) {
+		if (item instanceof Step) {
+			return mSteps.indexOf(item);
+		}
+		return AdapterView.INVALID_POSITION;
+	}
+	
+	private void setStepView(int position, View convertView){
+		Step step = (Step) getItem(position);
+
+		final FrameLayout layout = (FrameLayout) convertView.findViewById(R.id.layout);
+		// layout.setBackground(background); //TODO: postavi sliku
+
+		final TextView description = (TextView) convertView.findViewById(R.id.description);
+		description.setText(step.description);
+
+		final TextView footer = (TextView) convertView.findViewById(R.id.footer);
+		String stepText = mContext.getResources().getString(R.string.step_number);
+		footer.setText(String.format(stepText, position, getCount()));
+
+		if (step.durationMinutes != null) {
+			final TextView duration = (TextView) convertView.findViewById(R.id.duration);
+			String durationText = mContext.getResources().getString(R.string.duration);
+			duration.setText(String.format(durationText, step.durationMinutes));
+		}
+	}
 }

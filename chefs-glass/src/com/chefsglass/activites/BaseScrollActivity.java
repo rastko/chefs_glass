@@ -16,16 +16,15 @@
 
 package com.chefsglass.activites;
 
-import com.google.android.glass.touchpad.GestureDetector;
-import com.google.android.glass.widget.CardScrollAdapter;
-import com.google.android.glass.widget.CardScrollView;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
+
+import com.google.android.glass.touchpad.GestureDetector;
+import com.google.android.glass.widget.CardScrollView;
 
 /**
  * Base {@link Activity} for {@link CardScrollView} based Activities.
