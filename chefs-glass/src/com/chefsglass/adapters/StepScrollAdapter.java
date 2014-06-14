@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.chiefsglass.adapters;
+package com.chefsglass.adapters;
 
 import java.util.List;
 
