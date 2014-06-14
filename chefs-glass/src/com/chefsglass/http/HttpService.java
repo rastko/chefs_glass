@@ -6,6 +6,8 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import android.util.Log;
+
 /**
  * 
  * @author Marko Pandurovic
@@ -44,6 +46,7 @@ public class HttpService {
 	 * @return
 	 */
 	public <T> ResponseEntity<T> get(Class<T> responseBody, BaseHttpRequest<T> request) {
+		Log.d("URL: %s", request.url());
 		ResponseEntity<T> response = restTemplate.getForEntity(request.url(), request.getResponseBody());
 		return response;
 	}

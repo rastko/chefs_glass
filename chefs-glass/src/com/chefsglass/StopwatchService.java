@@ -16,6 +16,12 @@
 
 package com.chefsglass;
 
+import org.springframework.http.ResponseEntity;
+
+import com.chefsglass.http.AsyncHttpTask;
+import com.chefsglass.http.HttpService;
+import com.chefsglass.http.requests.GetRecipeRequest;
+import com.chefsglass.resources.Recipe;
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
 
@@ -30,44 +36,63 @@ import android.util.Log;
  */
 public class StopwatchService extends Service {
 
-    private static final String LIVE_CARD_TAG = "stopwatch";
+	private static final String LIVE_CARD_TAG = "stopwatch";
 
-    private ChronometerDrawer mCallback;
+	private ChronometerDrawer mCallback;
 
-    private LiveCard mLiveCard;
+	private LiveCard mLiveCard;
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
+	@Override
+	public IBinder onBind(Intent intent) {
+		return null;
+	}
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        if (mLiveCard == null) {
-            mLiveCard = new LiveCard(this, LIVE_CARD_TAG);
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		if (mLiveCard == null) {
+			mLiveCard = new LiveCard(this, LIVE_CARD_TAG);
+			new GetRecipeTask(new GetRecipeRequest(1l)).execute();
 
-            // Keep track of the callback to remove it before unpublishing.
-            mCallback = new ChronometerDrawer(this);
-            mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mCallback);
+			// Keep track of the callback to remove it before unpublishing.
+			mCallback = new ChronometerDrawer(this);
+			mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mCallback);
 
-            Intent menuIntent = new Intent(this, MenuActivity.class);
-            menuIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            mLiveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
-            mLiveCard.attach(this);
-            mLiveCard.publish(PublishMode.REVEAL);
-        } else {
-            mLiveCard.navigate();
-        }
+			Intent menuIntent = new Intent(this, MenuActivity.class);
+			menuIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			mLiveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
+			mLiveCard.attach(this);
+			mLiveCard.publish(PublishMode.REVEAL);
+		} else {
+			mLiveCard.navigate();
+		}
 
-        return START_STICKY;
-    }
+		return START_STICKY;
+	}
 
-    @Override
-    public void onDestroy() {
-        if (mLiveCard != null && mLiveCard.isPublished()) {
-            mLiveCard.unpublish();
-            mLiveCard = null;
-        }
-        super.onDestroy();
-    }
+	@Override
+	public void onDestroy() {
+		if (mLiveCard != null && mLiveCard.isPublished()) {
+			mLiveCard.unpublish();
+			mLiveCard = null;
+		}
+		super.onDestroy();
+	}
+
+	public class GetRecipeTask extends AsyncHttpTask<Recipe, GetRecipeRequest> {
+
+		public GetRecipeTask(GetRecipeRequest request) {
+			super(request);
+		}
+
+		@Override
+		protected void onSuccess(Recipe result) {
+			Log.i("Recipe id: %s", result.id);
+		}
+
+		@Override
+		protected void onFailure(ResponseEntity<Recipe> result) {
+			Log.e("Error occured", "something");
+		}
+
+	}
 }
