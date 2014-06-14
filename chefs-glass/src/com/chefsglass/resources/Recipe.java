@@ -2,6 +2,9 @@ package com.chefsglass.resources;
 
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Recipe {
 	public String id;
 	public String name;

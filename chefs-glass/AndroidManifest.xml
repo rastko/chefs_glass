@@ -18,6 +18,8 @@
     package="com.google.android.glass.sample.stopwatch"
     android:versionCode="5"
     android:versionName="1.0" >
+    
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     <uses-sdk
         android:minSdkVersion="19"
