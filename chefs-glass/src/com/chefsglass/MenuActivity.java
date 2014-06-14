@@ -26,7 +26,7 @@ import android.view.MenuItem;
 
 import java.lang.Runnable;
 
-import com.google.android.glass.sample.stopwatch.R;
+import com.chefsglass.R;
 
 /**
  * Activity showing the stopwatch options menu.
